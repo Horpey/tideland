@@ -1,15 +1,21 @@
 <template>
   <div class="mt-3">
     <div class="trends">
-      <div class="theatrelease" v-for="(trend, index) in trending" :key="index">
+      <div
+        class="theatrelease"
+        style="margin-right: 10px;
+    width: 125px;"
+        v-for="(trend, index) in trending"
+        :key="index"
+      >
         <router-link :to="'movie/' + trend.id">
           <div class="mvView theatt">
             <div
               type="depth_inv"
               class="posterimg frontImg"
-              :style="'background-image: url('+imgUrl + trend.backdrop_path + ')'"
+              style="border-radius: 10px;"
+              :style="'background-image: url('+imgUrl + trend.poster_path + ')'"
             ></div>
-            <p>{{trend.original_title || trend.name}}</p>
           </div>
         </router-link>
       </div>
@@ -43,9 +49,10 @@ export default {
   },
   mounted() {
     this.$store
-      .dispatch("getNowPlaying")
+      .dispatch("getTopRated")
       .then((resp) => {
         this.trending = resp.data.results;
+        console.log(this.trending);
       })
       .catch((err) => {});
   },

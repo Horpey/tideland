@@ -19,6 +19,36 @@ export const actions = {
     });
   },
 
+  getPopular({ commit }) {
+    return new Promise((resolve, reject) => {
+      axios({
+        url: `${baseURL}/3/movie/popular?api_key=${apiKey}`,
+        method: "GET",
+      })
+        .then((resp) => {
+          resolve(resp);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    });
+  },
+
+  getTopRated({ commit }) {
+    return new Promise((resolve, reject) => {
+      axios({
+        url: `${baseURL}/3/movie/top_rated?api_key=${apiKey}`,
+        method: "GET",
+      })
+        .then((resp) => {
+          resolve(resp);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    });
+  },
+
   getNowPlaying({ commit }) {
     return new Promise((resolve, reject) => {
       axios({

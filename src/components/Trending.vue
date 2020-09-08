@@ -2,7 +2,7 @@
   <div class="mt-3">
     <div class="trends">
       <div class="trendcard" v-for="(trend, index) in trending" :key="index">
-        <router-link :to="'movie/' + trend.depth_inv">
+        <router-link :to="'movie/' + trend.id">
           <div class="mvView">
             <div>
               <kinesis-container class="posterGrp">
@@ -27,7 +27,7 @@
           <div class>
             <div class="row">
               <div class="col-9 pr-0">
-                <router-link :to="'movie/' + trend.depth_inv">
+                <router-link :to="'movie/' + trend.id">
                   <p
                     class="font-weight-bold text-dark mb-0 text-left"
                   >{{ trend.original_title || trend.name | truncate(17) }}</p>
@@ -47,7 +47,7 @@
 
               <div class="col-3 pl-0">
                 <div class="pt-2">
-                  <router-link :to="'movie/' + trend.depth_inv" class="mr-2 text-dark">
+                  <router-link :to="'movie/' + trend.id" class="mr-2 text-dark">
                     <InfoIcon size="1.7x"></InfoIcon>
                     <span class="d-block">Info</span>
                   </router-link>
@@ -90,7 +90,6 @@ export default {
       .dispatch("getTrending")
       .then((resp) => {
         this.trending = resp.data.results;
-        console.log(resp.data);
       })
       .catch((err) => {});
   },
