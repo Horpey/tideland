@@ -6,9 +6,10 @@
       </div>
       <div class="col-6">
         <div class="headlinks mt-1">
-          <a href="#" class="text-dark">TV Shows</a>
+          <p class="small">Every Movie has a story.</p>
+          <!-- <a href="#" class="text-dark">TV Shows</a>
           <a href="#" class="text-dark">Movies</a>
-          <a href="#" class="text-dark">HD</a>
+          <a href="#" class="text-dark">HD</a>-->
         </div>
       </div>
     </div>
