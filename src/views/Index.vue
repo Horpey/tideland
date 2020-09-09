@@ -24,10 +24,10 @@ export default {
   name: "index",
   components: { Homehead, Trending, Movielist, NowPlaying, TopRated },
   mounted() {
-    this.$store
-      .dispatch("getConfigurations")
-      .then((resp) => {})
-      .catch((err) => {});
+    // this.$store
+    //   .dispatch("getConfigurations")
+    //   .then((resp) => {})
+    //   .catch((err) => {});
   },
 };
 </script>

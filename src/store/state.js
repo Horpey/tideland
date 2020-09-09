@@ -2,6 +2,7 @@ export const state = {
   loading: false,
   apiKey: "cb95eff79819a2a98cc3b3712fc5d402",
   config: {},
+  similarMovies: [],
   genres: [
     {
       id: 28,

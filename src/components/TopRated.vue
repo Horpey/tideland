@@ -52,7 +52,6 @@ export default {
       .dispatch("getTopRated")
       .then((resp) => {
         this.trending = resp.data.results;
-        console.log(this.trending);
       })
       .catch((err) => {});
   },

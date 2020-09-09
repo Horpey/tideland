@@ -8,4 +8,7 @@ export const getters = {
   genres(state) {
     return state.genres;
   },
+  similarMovies(state) {
+    return state.similarMovies;
+  },
 };

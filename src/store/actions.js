@@ -19,6 +19,66 @@ export const actions = {
     });
   },
 
+  getMovieDetails({ commit }, id) {
+    return new Promise((resolve, reject) => {
+      axios({
+        url: `${baseURL}/3/movie/${id}?api_key=${apiKey}`,
+        method: "GET",
+      })
+        .then((resp) => {
+          resolve(resp);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    });
+  },
+
+  getSimilar({ commit }, id) {
+    return new Promise((resolve, reject) => {
+      axios({
+        url: `${baseURL}/3/movie/${id}/similar?api_key=${apiKey}`,
+        method: "GET",
+      })
+        .then((resp) => {
+          resolve(resp);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    });
+  },
+
+  searchMovie({ commit }, search) {
+    return new Promise((resolve, reject) => {
+      axios({
+        url: `${baseURL}/3/search/movie?api_key=${apiKey}&query=${search}`,
+        method: "GET",
+      })
+        .then((resp) => {
+          resolve(resp);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    });
+  },
+
+  getVideos({ commit }, id) {
+    return new Promise((resolve, reject) => {
+      axios({
+        url: `${baseURL}/3/movie/${id}/videos?api_key=${apiKey}`,
+        method: "GET",
+      })
+        .then((resp) => {
+          resolve(resp);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    });
+  },
+
   getPopular({ commit }) {
     return new Promise((resolve, reject) => {
       axios({
@@ -67,6 +127,20 @@ export const actions = {
     return new Promise((resolve, reject) => {
       axios({
         url: `${baseURL}/3/trending/all/day?api_key=${apiKey}`,
+        method: "GET",
+      })
+        .then((resp) => {
+          resolve(resp);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    });
+  },
+  getLatest({ commit }) {
+    return new Promise((resolve, reject) => {
+      axios({
+        url: `${baseURL}/3/discover/movie?api_key=${apiKey}&sort_by=popularity.desc&include_adult=false&page=1`,
         method: "GET",
       })
         .then((resp) => {

@@ -35,7 +35,6 @@ export default {
       .dispatch("getPopular")
       .then((resp) => {
         this.movielist = resp.data.results;
-        console.log(this.movielist);
       })
       .catch((err) => {});
   },
