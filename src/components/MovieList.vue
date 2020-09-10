@@ -40,12 +40,20 @@ export default {
   methods: {
     handleScroll(event) {
       if (
-        document.documentElement.scrollHeight -
-          document.documentElement.scrollTop <=
-        766
+        document.documentElement.scrollTop +
+          0.7 * document.documentElement.offsetHeight >=
+        document.documentElement.scrollHeight
       ) {
         this.getMovies();
       }
+
+      // if (
+      //   document.documentElement.offsetHeight +
+      //     document.documentElement.scrollTop >=
+      //   document.documentElement.scrollHeight
+      // ) {
+      //   this.getMovies();
+      // }
     },
     getMovies() {
       let page = this.page++;
