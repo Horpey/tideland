@@ -6,6 +6,7 @@ import Movie from "./views/Movie.vue";
 import Search from "./views/Search.vue";
 import MyList from "./views/MyList.vue";
 import More from "./views/More.vue";
+import ThanksSupport from "./views/ThanksSupport.vue";
 
 Vue.use(Router);
 
@@ -51,6 +52,13 @@ export default new Router({
       components: {
         default: More,
         footer: MenuBar,
+      },
+    },
+    {
+      path: "/thanks-for-support",
+      name: "thanks-for-support",
+      components: {
+        default: ThanksSupport,
       },
     },
   ],

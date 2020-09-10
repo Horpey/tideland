@@ -10,37 +10,43 @@
       </p>
       <div class="row">
         <div class="col-8">
-          <input
-            disabled
-            value="https://tideland.web.app"
-            class="form-control form-control-sm"
-          />
+          <input disabled value="https://tideland.web.app" class="form-control form-control-sm" />
         </div>
         <div class="col-3 pl-0">
-          <button class="btn btn-custom btn-sm text-capitalize">
-            Copy link
-          </button>
+          <button class="btn btn-custom btn-sm text-capitalize">Copy link</button>
         </div>
       </div>
     </div>
 
     <div class="searchcard">
       <p class="small">
-        <a href="#" class="text-dark">About Tideland</a>
+        <a href="javascript:void()" class="text-dark">About Tideland</a>
       </p>
       <p class="small">
-        <a href="#" class="text-dark">Contributors</a>
+        <a href="javascript:void()" class="text-dark">Contributors</a>
       </p>
       <p class="small">
-        <a href="#" class="text-dark">Github</a>
+        <a href="https://github.com/Horpey" target="_blank" class="text-dark">Github</a>
       </p>
       <p class="small">
-        <a href="#" class="text-dark">Dribbble Design</a>
+        <a
+          href="https://dribbble.com/tha_ui_guy_"
+          target="_blank"
+          class="text-dark"
+        >Dribbble Profile</a>
       </p>
+      <a
+        href="https://paystack.com/pay/tideland"
+        target="_blank"
+        class="btn btn-dark text-capitalize"
+      >
+        <span class="fa fa-coffee mr-2"></span> Buy me a Coffee
+      </a>
     </div>
     <div class="text-right">
       <p class="small mb-0 mt-3">
-        Author: <a href="https://horpey.com" target="_blank">Horpey</a>
+        Author:
+        <a href="https://horpey.com" target="_blank">Horpey</a>
       </p>
       <p class="small">Tideland v.1.0</p>
     </div>

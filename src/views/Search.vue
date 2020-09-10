@@ -44,6 +44,7 @@
           </router-link>
         </div>
       </div>
+      <div class="setDemarc"></div>
     </div>
   </div>
 </template>
@@ -104,4 +105,8 @@ export default {
   },
 };
 </script>
-<style></style>
+<style>
+.setDemarc {
+  height: 120px;
+}
+</style>
