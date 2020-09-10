@@ -79,10 +79,10 @@ export const actions = {
     });
   },
 
-  getPopular({ commit }) {
+  getPopular({ commit }, page) {
     return new Promise((resolve, reject) => {
       axios({
-        url: `${baseURL}/3/movie/popular?api_key=${apiKey}`,
+        url: `${baseURL}/3/movie/popular?api_key=${apiKey}&page=${page}`,
         method: "GET",
       })
         .then((resp) => {
@@ -123,10 +123,10 @@ export const actions = {
         });
     });
   },
-  getTrending({ commit }) {
+  getTrending({ commit }, page) {
     return new Promise((resolve, reject) => {
       axios({
-        url: `${baseURL}/3/trending/all/day?api_key=${apiKey}`,
+        url: `${baseURL}/3/trending/all/day?api_key=${apiKey}&page=${page}`,
         method: "GET",
       })
         .then((resp) => {

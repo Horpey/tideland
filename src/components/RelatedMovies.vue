@@ -10,7 +10,6 @@
             ></div>
           </router-link>
         </div>
-        <div class="demarc"></div>
       </div>
     </div>
   </div>

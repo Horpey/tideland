@@ -20,6 +20,7 @@ export default {
   data() {
     return {
       movielist: [],
+      page: 1,
     };
   },
   computed: {
@@ -31,14 +32,28 @@ export default {
     },
   },
   mounted() {
-    this.$store
-      .dispatch("getPopular")
-      .then((resp) => {
-        this.movielist = resp.data.results;
-      })
-      .catch((err) => {});
+    this.scroll();
   },
   methods: {
+    scroll() {
+      window.onscroll = () => {
+        let bottomOfWindow =
+          document.documentElement.scrollTop + window.innerHeight ===
+          document.documentElement.offsetHeight;
+
+        if (bottomOfWindow) {
+          let page = this.page++;
+          this.$store
+            .dispatch("getPopular", page)
+            .then((resp) => {
+              for (let i = 0; i < resp.data.results.length; i++) {
+                this.movielist.push(resp.data.results[i]);
+              }
+            })
+            .catch((err) => {});
+        }
+      };
+    },
     checkAvailGenre(genre) {
       let genreObj = this.genres.find((x) => x.id === genre);
       if (genreObj) {

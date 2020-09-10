@@ -54,16 +54,25 @@ export default new Router({
       },
     },
   ],
-  scrollBehavior: (to) => {
-    if (to.hash) {
-      return {
-        selector: to.hash,
-      };
+  scrollBehavior(to, from, savedPosition) {
+    if (savedPosition) {
+      console.log(savedPosition);
+      window.scrollTo(savedPosition.x, savedPosition.y);
+      return savedPosition;
     } else {
-      return {
-        x: 0,
-        y: 0,
-      };
+      return { x: 0, y: 0 };
     }
   },
+  // scrollBehavior: (to) => {
+  //   if (to.hash) {
+  //     return {
+  //       selector: to.hash,
+  //     };
+  //   } else {
+  //     return {
+  //       x: 0,
+  //       y: 0,
+  //     };
+  //   }
+  // },
 });
