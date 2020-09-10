@@ -1,7 +1,7 @@
 <template>
   <div class="container mt-4">
     <h6 class="mt-4 font-weight-bold">My Tideland List</h6>
-    <div class="">
+    <div class>
       <MyList />
     </div>
   </div>

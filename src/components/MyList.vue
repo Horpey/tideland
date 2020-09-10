@@ -3,12 +3,12 @@
     <div class="movielist">
       <div class="row movierow">
         <div class="col-4" v-for="(movie, index) in movielist" :key="index">
-          <router-link :to="'movie/' + movie.title">
+          <router-link :to="'/movie/' + movie.id">
             <div
               class="moviecard"
-              :style="'background-image: url(' + movie.poster + ')'"
-            ></div
-          ></router-link>
+              :style="'background-image: url('+imgUrl + movie.poster_path + ')'"
+            ></div>
+          </router-link>
         </div>
       </div>
     </div>
@@ -19,35 +19,16 @@ export default {
   components: {},
   data() {
     return {
-      movielist: [
-        {
-          poster:
-            "http://www.impawards.com/2020/posters/jungle_cruise_ver4.jpg",
-          title: "Jungle Cruise",
-        },
-        {
-          poster: "http://www.impawards.com/2020/posters/mulan_ver21.jpg",
-          title: "Mulan",
-        },
-        {
-          poster: "http://www.impawards.com/2020/posters/after_midnight.jpg",
-          title: "After Midnight",
-        },
-        {
-          poster:
-            "http://www.impawards.com/2020/posters/jungle_cruise_ver4.jpg",
-          title: "Jungle Cruise",
-        },
-        {
-          poster: "http://www.impawards.com/2020/posters/mulan_ver21.jpg",
-          title: "Mulan",
-        },
-        {
-          poster: "http://www.impawards.com/2020/posters/after_midnight.jpg",
-          title: "After Midnight",
-        },
-      ],
+      movielist: [],
     };
+  },
+  computed: {
+    imgUrl() {
+      return "http://image.tmdb.org/t/p/w500/";
+    },
+  },
+  mounted() {
+    this.movielist = JSON.parse(localStorage.getItem("tidelandList"));
   },
 };
 </script>

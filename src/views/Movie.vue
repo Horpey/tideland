@@ -31,10 +31,10 @@
         </div>
         <div class="col-8">
           <div class>
+            <h6 class="font-weight-bold mb-1">{{movieDetails.original_title}}</h6>
+            <p class="mvYear mb-2">{{movieDetails.release_date | getYear}}</p>
             <div class="row">
-              <div class="col-8">
-                <h6 class="font-weight-bold mb-1">{{movieDetails.original_title}}</h6>
-                <p class="mvYear mb-2">{{movieDetails.release_date | getYear}}</p>
+              <div class="col-4">
                 <div class>
                   <vue-stars
                     :active-color="'#c3a900'"
@@ -48,16 +48,36 @@
                   />
                 </div>
               </div>
-              <div class="col-4">
-                <div class="text-right" style="margin-top: 33px;">
-                  <p
-                    @click="viewShare = !viewShare"
-                    class="movieacct mr-2 text-dark"
+              <div class="col-8">
+                <div class="text-right" style="margin-top: -20px;">
+                  <span
+                    v-if="!ifIncluded()"
+                    @click="addToList()"
+                    class="movieacct mr-2 text-dark d-inline-block mr-3"
                     style="cursor: pointer"
                   >
-                    <Share2Icon size="1.2x"></Share2Icon>
-                    <span class="d-block">Share</span>
-                  </p>
+                    <PlusIcon size="1x"></PlusIcon>
+                    <span class="d-block" style="font-size: 10px">My List</span>
+                  </span>
+
+                  <span
+                    v-if="ifIncluded() || addedtoList"
+                    @click="removefromList()"
+                    class="movieacct mr-2 text-dark d-inline-block mr-3"
+                    style="cursor: pointer"
+                  >
+                    <CheckIcon size="1x"></CheckIcon>
+                    <span class="d-block" style="font-size: 10px">My List</span>
+                  </span>
+
+                  <span
+                    @click="viewShare = !viewShare"
+                    class="movieacct mr-2 text-dark d-inline-block"
+                    style="cursor: pointer"
+                  >
+                    <Share2Icon size="1x"></Share2Icon>
+                    <span class="d-block" style="font-size: 10px">Share</span>
+                  </span>
                 </div>
               </div>
             </div>
@@ -160,6 +180,7 @@ import {
   PlusIcon,
   Share2Icon,
   ThumbsUpIcon,
+  CheckIcon,
   ArrowLeftIcon,
   XIcon,
 } from "vue-feather-icons";
@@ -171,6 +192,7 @@ export default {
     Share2Icon,
     ThumbsUpIcon,
     ArrowLeftIcon,
+    CheckIcon,
     XIcon,
     RelatedMovies,
     tabs: Tabs,
@@ -182,6 +204,7 @@ export default {
       movieimg: "http://www.impawards.com/2020/posters/jungle_cruise_ver4.jpg",
       movieDetails: "",
       viewShare: false,
+      addedtoList: false,
       sitePath: window.location.href,
       mvBack: "",
       videos: [],
@@ -211,6 +234,56 @@ export default {
   methods: {
     shareMovie() {
       this.viewShare = true;
+    },
+    ifIncluded() {
+      if (localStorage.getItem("tidelandList")) {
+        var mvlist = JSON.parse(localStorage.getItem("tidelandList"));
+        let checkL = mvlist.filter((list) => list.id === this.movieDetails.id);
+        if (checkL.length >= 1) {
+          return true;
+        } else {
+          return false;
+        }
+      } else {
+        return false;
+      }
+    },
+    removefromList() {
+      this.addedtoList = false;
+      let addMovie = {
+        id: this.movieDetails.id,
+      };
+      var mvlist = JSON.parse(localStorage.getItem("tidelandList"));
+      mvlist = mvlist.filter(function (list) {
+        return list.id !== addMovie.id;
+      });
+      localStorage.setItem("tidelandList", JSON.stringify(mvlist));
+      this.ifIncluded();
+    },
+    addToList() {
+      this.addedtoList = true;
+      let addMovie = {
+        id: this.movieDetails.id,
+        title: this.movieDetails.original_title,
+        poster_path: this.movieDetails.poster_path,
+        overview: this.movieDetails.overview,
+      };
+      if (localStorage.getItem("tidelandList")) {
+        var mvlist = JSON.parse(localStorage.getItem("tidelandList"));
+        let checkL = mvlist.filter((list) => list.id === this.movieDetails.id);
+        if (checkL.length >= 1) {
+          console.log("Already In List");
+        } else {
+          mvlist.push(addMovie);
+          localStorage.setItem("tidelandList", JSON.stringify(mvlist));
+        }
+      } else {
+        var mvlist = [];
+        mvlist.push(addMovie);
+        localStorage.setItem("tidelandList", JSON.stringify(mvlist));
+      }
+
+      // console.log(JSON.parse(localStorage.getItem("tidelandList")));
     },
     getSimilar() {
       let id = this.$route.params.id;

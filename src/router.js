@@ -10,58 +10,60 @@ import More from "./views/More.vue";
 Vue.use(Router);
 
 export default new Router({
+  mode: "history",
   linkExactActiveClass: "active",
-  routes: [{
+  routes: [
+    {
       path: "/",
       name: "Index",
       components: {
         default: Index,
-        footer: MenuBar
-      }
+        footer: MenuBar,
+      },
     },
     {
       path: "/movie/:id",
       name: "Movie",
       components: {
         default: Movie,
-        footer: MenuBar
-      }
+        footer: MenuBar,
+      },
     },
     {
       path: "/search",
       name: "Search",
       components: {
         default: Search,
-        footer: MenuBar
-      }
+        footer: MenuBar,
+      },
     },
     {
       path: "/my-list",
       name: "MyList",
       components: {
         default: MyList,
-        footer: MenuBar
-      }
+        footer: MenuBar,
+      },
     },
     {
       path: "/more",
       name: "More",
       components: {
         default: More,
-        footer: MenuBar
-      }
-    }
+        footer: MenuBar,
+      },
+    },
   ],
-  scrollBehavior: to => {
+  scrollBehavior: (to) => {
     if (to.hash) {
       return {
-        selector: to.hash
+        selector: to.hash,
       };
     } else {
       return {
         x: 0,
-        y: 0
+        y: 0,
       };
     }
-  }
+  },
 });

@@ -8,7 +8,7 @@
       <h6 class="mt-2 font-weight-bold">Top rated Movies</h6>
       <TopRated />
       <h6 class="mt-4 font-weight-bold">Popular Movies</h6>
-      <Movielist style="padding-bottom: 300px;" />
+      <Movielist style="padding-bottom: 100px;" />
     </div>
   </div>
 </template>
