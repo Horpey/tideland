@@ -94,10 +94,10 @@ export const actions = {
     });
   },
 
-  getTopRated({ commit }) {
+  getTopRated({ commit }, page) {
     return new Promise((resolve, reject) => {
       axios({
-        url: `${baseURL}/3/movie/top_rated?api_key=${apiKey}`,
+        url: `${baseURL}/3/movie/top_rated?api_key=${apiKey}&page=${page}`,
         method: "GET",
       })
         .then((resp) => {
@@ -109,10 +109,10 @@ export const actions = {
     });
   },
 
-  getNowPlaying({ commit }) {
+  getNowPlaying({ commit }, page) {
     return new Promise((resolve, reject) => {
       axios({
-        url: `${baseURL}/3/movie/now_playing?api_key=${apiKey}`,
+        url: `${baseURL}/3/movie/now_playing?api_key=${apiKey}&page=${page}`,
         method: "GET",
       })
         .then((resp) => {

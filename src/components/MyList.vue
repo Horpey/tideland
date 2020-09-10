@@ -2,7 +2,7 @@
   <div class="mt-3">
     <div class="movielist">
       <div class="row movierow">
-        <div class="col-4" v-for="(movie, index) in movielist" :key="index">
+        <div class="col-4" v-for="(movie, index) in movielist.slice().reverse()" :key="index">
           <router-link :to="'/movie/' + movie.id">
             <div
               class="moviecard"

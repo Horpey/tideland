@@ -39,17 +39,34 @@ export default {
   data() {
     return {
       trending: [],
+      page: 1,
     };
   },
   mounted() {
-    this.$store
-      .dispatch("getNowPlaying")
-      .then((resp) => {
-        this.trending = resp.data.results;
-      })
-      .catch((err) => {});
+    this.getNowPlaying();
+    this.trendsScroll = this.$el.querySelector(".trends");
+    this.trendsScroll.addEventListener("scroll", this.handleScroll);
   },
   methods: {
+    handleScroll(event) {
+      if (
+        this.trendsScroll.offsetWidth + this.trendsScroll.scrollLeft + 60 >=
+        this.trendsScroll.scrollWidth
+      ) {
+        this.getNowPlaying();
+      }
+    },
+    getNowPlaying() {
+      let page = this.page++;
+      this.$store
+        .dispatch("getNowPlaying", page)
+        .then((resp) => {
+          for (let i = 0; i < resp.data.results.length; i++) {
+            this.trending.push(resp.data.results[i]);
+          }
+        })
+        .catch((err) => {});
+    },
     checkAvailGenre(genre) {
       let genreObj = this.genres.find((x) => x.id === genre);
       if (genreObj) {

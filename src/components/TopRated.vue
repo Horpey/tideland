@@ -45,17 +45,35 @@ export default {
   data() {
     return {
       trending: [],
+      page: 1,
+      trendsScroll: "",
     };
   },
   mounted() {
-    this.$store
-      .dispatch("getTopRated")
-      .then((resp) => {
-        this.trending = resp.data.results;
-      })
-      .catch((err) => {});
+    this.getTopRated();
+    this.trendsScroll = this.$el.querySelector(".trends");
+    this.trendsScroll.addEventListener("scroll", this.handleScroll);
   },
   methods: {
+    handleScroll(event) {
+      if (
+        this.trendsScroll.offsetWidth + this.trendsScroll.scrollLeft + 30 >=
+        this.trendsScroll.scrollWidth
+      ) {
+        this.getTopRated();
+      }
+    },
+    getTopRated() {
+      let page = this.page++;
+      this.$store
+        .dispatch("getTopRated", page)
+        .then((resp) => {
+          for (let i = 0; i < resp.data.results.length; i++) {
+            this.trending.push(resp.data.results[i]);
+          }
+        })
+        .catch((err) => {});
+    },
     checkAvailGenre(genre) {
       let genreObj = this.genres.find((x) => x.id === genre);
       if (genreObj) {
