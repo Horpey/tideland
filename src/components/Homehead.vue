@@ -1,5 +1,5 @@
 <template>
-  <div class="mt-3">
+  <div class="pt-3">
     <div class="row">
       <div class="col-6">
         <img height="20" src="img/custom/logo.svg" />

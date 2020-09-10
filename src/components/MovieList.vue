@@ -41,7 +41,7 @@ export default {
     handleScroll(event) {
       if (
         document.documentElement.scrollTop +
-          0.7 * document.documentElement.offsetHeight >=
+          1.1 * document.documentElement.offsetHeight >=
         document.documentElement.scrollHeight
       ) {
         this.getMovies();
