@@ -21,6 +21,7 @@ export default {
     return {
       movielist: [],
       page: 1,
+      trendsScroll: "",
     };
   },
   computed: {
@@ -32,27 +33,30 @@ export default {
     },
   },
   mounted() {
-    this.scroll();
+    this.getMovies();
+    this.trendsScroll = this.$el.querySelector(".movielist");
+    window.addEventListener("scroll", this.handleScroll);
   },
   methods: {
-    scroll() {
-      window.onscroll = () => {
-        let bottomOfWindow =
-          document.documentElement.scrollTop + window.innerHeight ===
-          document.documentElement.offsetHeight;
-
-        if (bottomOfWindow) {
-          let page = this.page++;
-          this.$store
-            .dispatch("getPopular", page)
-            .then((resp) => {
-              for (let i = 0; i < resp.data.results.length; i++) {
-                this.movielist.push(resp.data.results[i]);
-              }
-            })
-            .catch((err) => {});
-        }
-      };
+    handleScroll(event) {
+      if (
+        document.documentElement.scrollHeight -
+          document.documentElement.scrollTop <=
+        766
+      ) {
+        this.getMovies();
+      }
+    },
+    getMovies() {
+      let page = this.page++;
+      this.$store
+        .dispatch("getPopular", page)
+        .then((resp) => {
+          for (let i = 0; i < resp.data.results.length; i++) {
+            this.movielist.push(resp.data.results[i]);
+          }
+        })
+        .catch((err) => {});
     },
     checkAvailGenre(genre) {
       let genreObj = this.genres.find((x) => x.id === genre);
