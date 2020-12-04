@@ -10,6 +10,7 @@ import { VueStars } from "vue-stars";
 import VueYouTubeEmbed from "vue-youtube-embed";
 import VueSocialSharing from "vue-social-sharing";
 import VueHead from "vue-head";
+import VueClipboard from "vue-clipboard2";
 
 moment().format();
 // Custom Filter
@@ -24,6 +25,7 @@ Vue.use(VueYouTubeEmbed);
 Vue.use(VueSocialSharing);
 Vue.use(Argon);
 Vue.use(VueHead);
+Vue.use(VueClipboard);
 // Vue.use(VueKinesis);
 new Vue({
   store,

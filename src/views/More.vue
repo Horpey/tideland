@@ -11,14 +11,23 @@
       <div class="row">
         <div class="col-8">
           <input
+            v-model="siteLink"
             disabled
-            value="https://tideland.web.app"
             class="form-control form-control-sm"
           />
         </div>
         <div class="col-3 pl-0">
-          <button class="btn btn-custom btn-sm text-capitalize">
-            Copy link
+          <button
+            v-clipboard:copy="siteLink"
+            v-clipboard:success="onCopy"
+            v-clipboard:error="onError"
+            class="btn btn-custom btn-sm text-capitalize"
+          >
+            <span v-if="hvCopied"
+              >Copied
+              <span class="ml-1 fa fa-check"></span>
+            </span>
+            <span v-else>Copy Link</span>
           </button>
         </div>
       </div>
@@ -76,8 +85,16 @@ export default {
   },
   data() {
     return {
+      hvCopied: false,
+      siteLink: "https://tideland.netlify.app/",
       movieimg: "http://www.impawards.com/2020/posters/jungle_cruise_ver4.jpg",
     };
+  },
+  methods: {
+    onCopy: function (e) {
+      this.hvCopied = true;
+    },
+    onError: function (e) {},
   },
 };
 </script>
