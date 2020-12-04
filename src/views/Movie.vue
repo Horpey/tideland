@@ -3,9 +3,10 @@
     <div
       class="moviepreview"
       :style="
-        'background: linear-gradient(rgba(0, 0, 0, 0.51), rgba(0, 0, 0, 0.51)), url(' +
-          imgUrl + mvBack +
-          ')'
+        'background: linear-gradient(rgba(0, 0, 0, 0.51), rgb(0 0 0 / 0%)), url(' +
+        imgUrl +
+        mvBack +
+        ')'
       "
     >
       <div class="pt-3 pl-3 text-left">
@@ -13,26 +14,32 @@
           <ArrowLeftIcon />
         </p>
       </div>
-      <div class="playdiv">
-        <a href="#" class="playicon">
+      <!-- <div class="playdiv">
+        <a @click="viewMovie()" class="playicon" style="cursor: pointer">
           <span class="fa fa-play"></span>
         </a>
-      </div>
+      </div> -->
     </div>
     <div class="container">
       <div class="row">
         <div class="col-4 pr-0">
           <img
-            :src="imgUrl+movieDetails.poster_path"
+            :src="getMovieImg(movieDetails.poster_path)"
             class="img-fluid"
-            style="border-radius: 6px; margin-top: -88px; border: 3px solid white;"
+            style="
+              border-radius: 6px;
+              margin-top: -88px;
+              border: 3px solid white;
+            "
             :alt="movieDetails.original_title"
           />
         </div>
         <div class="col-8">
           <div class>
-            <h6 class="font-weight-bold mb-1">{{movieDetails.original_title}}</h6>
-            <p class="mvYear mb-2">{{movieDetails.release_date | getYear}}</p>
+            <h6 class="font-weight-bold mb-1">
+              {{ movieDetails.original_title }}
+            </h6>
+            <p class="mvYear mb-2">{{ movieDetails.release_date | getYear }}</p>
             <div class="row">
               <div class="col-4">
                 <div class>
@@ -49,7 +56,7 @@
                 </div>
               </div>
               <div class="col-8">
-                <div class="text-right" style="margin-top: -20px;">
+                <div class="text-right" style="margin-top: -20px">
                   <span
                     v-if="!ifIncluded()"
                     @click="addToList()"
@@ -85,29 +92,32 @@
         </div>
       </div>
       <div class="my-4">
-        <p class="small">{{movieDetails.overview}}</p>
+        <p class="small">{{ movieDetails.overview }}</p>
         <p>
           <span
             class="releaseDate mr-1"
-            v-for="(genre,index) in movieDetails.genres"
+            v-for="(genre, index) in movieDetails.genres"
             :key="index"
-          >{{genre.name}}</span>
+            >{{ genre.name }}</span
+          >
         </p>
       </div>
 
-      <tabs fill class="tabsSection" style="padding-bottom: 150px;">
+      <tabs fill class="tabsSection" style="padding-bottom: 150px">
         <div>
           <tab-pane>
             <span slot="title">Trailer & More</span>
             <div>
-              <div class="mb-4" v-for="(vid,index) in videos" :key="index">
+              <div class="mb-4" v-for="(vid, index) in videos" :key="index">
                 <youtube
                   class="trailerPrev"
                   :video-id="vid.key"
                   player-width="100%"
                   player-height="200"
                 ></youtube>
-                <p class="small" style="font-weight: bold; color: black">{{vid.name}}</p>
+                <p class="small" style="font-weight: bold; color: black">
+                  {{ vid.name }}
+                </p>
               </div>
             </div>
           </tab-pane>
@@ -121,15 +131,22 @@
         </div>
       </tabs>
     </div>
-    <div :class="{'sharePopUp': true,  'hideShare': !viewShare}" @click="viewShare = !viewShare">
+    <div
+      @click="viewShare = false"
+      :class="{ sharePopUp: true, hideShare: !viewShare }"
+    >
       <div class>
         <div class="text-center" style="margin-top: 160px">
-          <div class="closePopDiv">
-            <div style="max-width: 200px; margin-top:10px; margin: 0 auto">
+          <div class="closePopDiv" @click="viewShare = !viewShare">
+            <div style="max-width: 200px; margin-top: 10px; margin: 0 auto">
               <p class="font-weight-bold" style="color: white">Share to...</p>
               <ShareNetwork
                 class="btn btn-white mb-3 text-capitalize mx-0"
-                style="background-color: #23d366; border-color:  #23d366; color: white"
+                style="
+                  background-color: #23d366;
+                  border-color: #23d366;
+                  color: white;
+                "
                 network="whatsapp"
                 :url="sitePath"
                 :title="`Seen '${movieDetails.original_title}' on Tideland yet?`"
@@ -140,7 +157,11 @@
               </ShareNetwork>
               <ShareNetwork
                 class="btn btn-white mb-3 text-capitalize mx-0"
-                style="background-color: #1a77f2; border-color:  #1a77f2; color: white"
+                style="
+                  background-color: #1a77f2;
+                  border-color: #1a77f2;
+                  color: white;
+                "
                 network="facebook"
                 :url="sitePath"
                 :title="`Seen '${movieDetails.original_title}' on Tideland yet?`"
@@ -151,7 +172,11 @@
               <ShareNetwork
                 class="btn btn-white mb-3 text-capitalize mx-0"
                 network="twitter"
-                style="background-color: #1da2f1; border-color:  #1da2f1; color: white"
+                style="
+                  background-color: #1da2f1;
+                  border-color: #1da2f1;
+                  color: white;
+                "
                 :url="sitePath"
                 :title="`Seen '${movieDetails.original_title}' on Tideland yet?`"
                 hashtags="tideland,movies,imdb,series,tv"
@@ -169,12 +194,35 @@
         </div>
       </div>
     </div>
+
+    <!-- Modal Preview -->
+    <modal :show.sync="movieStream">
+      <template slot="header">
+        <h5 class="modal-title" id="exampleModalLabel">Streaming Links</h5>
+      </template>
+      <div style="min-height: 300px">
+        <div v-for="(link, index) in movieFrames" class="mb-2" :key="index">
+          <router-link
+            to="/movie-stream"
+            class="btn btn-sm btn-primary text-lowercase"
+            >{{ link }}</router-link
+          >
+        </div>
+      </div>
+      <template slot="footer">
+        <button class="btn btn-secondary" @click="movieStream = false">
+          Close
+        </button>
+      </template>
+    </modal>
   </div>
 </template>
 <script>
 import Tab from "../components/Tabs/Tab";
 import TabPane from "../components/Tabs/TabPane";
 import Tabs from "../components/Tabs/Tabs";
+import Modal from "../components/Modal.vue";
+
 import {
   DownloadIcon,
   PlusIcon,
@@ -194,6 +242,7 @@ export default {
     ArrowLeftIcon,
     CheckIcon,
     XIcon,
+    Modal,
     RelatedMovies,
     tabs: Tabs,
     "tab-pane": TabPane,
@@ -206,9 +255,16 @@ export default {
       viewShare: false,
       addedtoList: false,
       sitePath: window.location.href,
+      movieFrames: ["https://mvlist.com/muland", "https://mvlist.com/muland"],
       mvBack: "",
       videos: [],
+      movieStream: false,
       similarMovies: [],
+      modals: {
+        modal1: false,
+        modal2: false,
+        modal3: false,
+      },
     };
   },
   computed: {
@@ -228,12 +284,34 @@ export default {
       .then((resp) => {
         this.movieDetails = resp.data;
         this.getBackDrop();
+        this.getMovieFrames();
       })
       .catch((err) => {});
   },
   methods: {
+    getMovieFrames() {
+      let imdbID = this.movieDetails.imdb_id;
+      this.$store
+        .dispatch("getMovieFrame", imdbID)
+        .then((resp) => {
+          // console.log(resp);
+          // this.movieDetails = resp.data;
+        })
+        .catch((err) => {});
+    },
+    viewMovie() {
+      // console.log("View Movie");
+      this.movieStream = true;
+    },
     shareMovie() {
       this.viewShare = true;
+    },
+    getMovieImg(path) {
+      if (path) {
+        return this.imgUrl + path;
+      } else {
+        return "/img/custom/placeholder.svg";
+      }
     },
     ifIncluded() {
       if (localStorage.getItem("tidelandList")) {
@@ -272,7 +350,7 @@ export default {
         var mvlist = JSON.parse(localStorage.getItem("tidelandList"));
         let checkL = mvlist.filter((list) => list.id === this.movieDetails.id);
         if (checkL.length >= 1) {
-          console.log("Already In List");
+          // console.log("Already In List");
         } else {
           mvlist.push(addMovie);
           localStorage.setItem("tidelandList", JSON.stringify(mvlist));

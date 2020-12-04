@@ -3,7 +3,9 @@
     <router-view name="header"></router-view>
     <div>
       <fade-transition origin="center" mode="out-in" :duration="250">
-        <router-view :key="$route.fullPath" />
+        <keep-alive>
+          <router-view :key="$route.fullPath" />
+        </keep-alive>
       </fade-transition>
     </div>
     <router-view name="footer"></router-view>

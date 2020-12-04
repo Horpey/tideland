@@ -6,7 +6,9 @@
           <router-link :to="'movie/' + movie.id">
             <div
               class="moviecard"
-              :style="'background-image: url('+imgUrl  + movie.poster_path + ')'"
+              :style="
+                'background-image: url(' + imgUrl + movie.poster_path + ')'
+              "
             ></div>
           </router-link>
         </div>
@@ -44,7 +46,7 @@ export default {
           1.1 * document.documentElement.offsetHeight >=
         document.documentElement.scrollHeight
       ) {
-        this.getMovies();
+        this.getNewList();
       }
 
       // if (
@@ -56,12 +58,26 @@ export default {
       // }
     },
     getMovies() {
+      if (sessionStorage.getItem("popularMovies")) {
+        this.movielist.push(
+          JSON.parse(sessionStorage.getItem("popularMovies"))
+        );
+      } else {
+        // this.getNewList();
+      }
+    },
+    getNewList() {
       let page = this.page++;
       this.$store
         .dispatch("getPopular", page)
         .then((resp) => {
           for (let i = 0; i < resp.data.results.length; i++) {
             this.movielist.push(resp.data.results[i]);
+
+            sessionStorage.setItem(
+              "popularMovies",
+              JSON.stringify(this.movielist)
+            );
           }
         })
         .catch((err) => {});

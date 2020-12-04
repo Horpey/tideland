@@ -9,6 +9,7 @@ import Vue2Filters from "vue2-filters";
 import { VueStars } from "vue-stars";
 import VueYouTubeEmbed from "vue-youtube-embed";
 import VueSocialSharing from "vue-social-sharing";
+import VueHead from "vue-head";
 
 moment().format();
 // Custom Filter
@@ -22,6 +23,7 @@ Vue.use(Vue2Filters);
 Vue.use(VueYouTubeEmbed);
 Vue.use(VueSocialSharing);
 Vue.use(Argon);
+Vue.use(VueHead);
 // Vue.use(VueKinesis);
 new Vue({
   store,

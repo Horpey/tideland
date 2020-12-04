@@ -19,6 +19,27 @@ export const actions = {
     });
   },
 
+  getMovieFrame({ commit }, imdbID) {
+    return new Promise((resolve, reject) => {
+      axios({
+        url: `https://movies-tv-series-streaming-links.p.rapidapi.com/?imdb=${imdbID}&?type=get-movie-embeds`,
+        method: "GET",
+        headers: {
+          "x-rapidapi-host": "movies-tv-series-streaming-links.p.rapidapi.com",
+          "x-rapidapi-key":
+            "e404456324mshddc568274713158p16ff08jsnb555342234da",
+          useQueryString: true,
+        },
+      })
+        .then((resp) => {
+          resolve(resp);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    });
+  },
+
   getMovieDetails({ commit }, id) {
     return new Promise((resolve, reject) => {
       axios({

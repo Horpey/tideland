@@ -64,11 +64,20 @@ export default new Router({
   ],
   scrollBehavior(to, from, savedPosition) {
     if (savedPosition) {
-      console.log(savedPosition);
-      window.scrollTo(savedPosition.x, savedPosition.y);
-      return savedPosition;
+      setTimeout(function() {
+        console.log(savedPosition);
+
+        window.scrollTo(savedPosition.x, savedPosition.y);
+      }, 500);
+
+      // window.scrollTo(savedPosition.x, savedPosition.y);
+
+      return {
+        savedPosition,
+        behavior: "smooth",
+      };
     } else {
-      return { x: 0, y: 0 };
+      return { x: 0, y: 0, behavior: "smooth" };
     }
   },
   // scrollBehavior: (to) => {

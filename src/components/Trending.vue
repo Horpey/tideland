@@ -2,7 +2,7 @@
   <div class="mt-3">
     <div class="trends">
       <div class="trendcard" v-for="(trend, index) in trending" :key="index">
-        <router-link :to="'movie/' + trend.id">
+        <div @click="routetoMovie(trend.id)">
           <div class="mvView">
             <div>
               <kinesis-container class="posterGrp">
@@ -10,36 +10,41 @@
                   :strength="12"
                   type="depth_inv"
                   class="posterimg frontImg"
-                  :style="'background-image: url('+imgUrl + trend.poster_path + ')'"
+                  :style="
+                    'background-image: url(' + imgUrl + trend.poster_path + ')'
+                  "
                 ></kinesis-element>
                 <kinesis-element
                   :strength="8"
                   type="depth"
                   class="posterimg backBlur"
-                  :style="'background-image: url('+imgUrl + trend.poster_path + ')'"
+                  :style="
+                    'background-image: url(' + imgUrl + trend.poster_path + ')'
+                  "
                 ></kinesis-element>
               </kinesis-container>
             </div>
           </div>
-        </router-link>
+        </div>
 
         <div class="trendact">
           <div class>
             <div class="row">
               <div class="col-9 pr-0">
                 <router-link :to="'movie/' + trend.id">
-                  <p
-                    class="font-weight-bold text-dark mb-0 text-left"
-                  >{{ trend.original_title || trend.name | truncate(17) }}</p>
+                  <p class="font-weight-bold text-dark mb-0 text-left">
+                    {{ trend.original_title || trend.name | truncate(17) }}
+                  </p>
                   <div class="text-left">
                     <!-- <p class="releaseDate">{{ trend.release_date || trend.first_air_date}}</p> -->
                     <p>
                       <span
                         class="releaseDate mr-1"
-                        v-for="(genre,index) in trend.genre_ids"
-                        v-if="index <2 && checkAvailGenre(genre)"
+                        v-for="(genre, index) in trend.genre_ids"
+                        v-if="index < 2 && checkAvailGenre(genre)"
                         :key="index"
-                      >{{checkGenres(genre)}}</span>
+                        >{{ checkGenres(genre) }}</span
+                      >
                     </p>
                   </div>
                 </router-link>
@@ -101,6 +106,10 @@ export default {
         this.getTrends();
       }
     },
+    routetoMovie(id) {
+      sessionStorage.setItem("trendingLeft", this.trendsScroll.scrollLeft);
+      this.$router.push("/movie/" + id);
+    },
     getTrends() {
       let page = this.page++;
       this.$store
@@ -109,6 +118,18 @@ export default {
           for (let i = 0; i < resp.data.results.length; i++) {
             this.trending.push(resp.data.results[i]);
           }
+
+          let TrendsScroll = document.querySelector(".trends");
+          console.log(document.querySelector(".trends").scrollLeft);
+
+          console.log(document.querySelector(".trends").scrollLeft);
+
+          // document.querySelector(".trends").scrollLeft = 665;
+          // 2244
+          // if (sessionStorage.getItem("trendingLeft")) {
+          //   let TrendsScroll = document.querySelector(".trends");
+          //   TrendsScroll.scrollTo(trendingLeft, 0);
+          // }
         })
         .catch((err) => {});
     },
