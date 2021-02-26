@@ -86,7 +86,7 @@ export default {
   data() {
     return {
       hvCopied: false,
-      siteLink: "https://tideland.netlify.app/",
+      siteLink: "https://tideland.xyz/",
       movieimg: "http://www.impawards.com/2020/posters/jungle_cruise_ver4.jpg",
     };
   },
